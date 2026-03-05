@@ -1,23 +1,38 @@
 # Copy this file to terraform.tfvars and customize the values
 
-aws_region       = "us-east-1"
-instance_type    = "t3.medium"
-key_pair_name    = "your-key-pair-name"  # REQUIRED: Change this to your AWS key pair name
-ssh_private_key_path = "~/.ssh/your-key.pem" # REQUIRED: Path to your local private key
-root_volume_size = 30
-data_volume_size = 100
-environment      = "dev"
+# Cloud provider: "aws" or "hetzner"
+#cloud_provider = "aws"
+
+# AWS Configuration (used if cloud_provider = "aws")
+#aws_region       = "us-east-1"
+#instance_type    = "t3.medium"
+#key_pair_name    = "your-key-pair-name"  # REQUIRED: Change this to your AWS key pair name
+#ami_id           = "ami-0c7217cdde317cfec"  # Ubuntu 22.04 LTS in us-east-1
+
+# Hetzner Configuration (used if cloud_provider = "hetzner")
+# hcloud_token          = "your-hcloud-token"  # REQUIRED: Get from Hetzner Console
+# hcloud_image          = "ubuntu-22.04"
+# hcloud_server_type    = "cx11"  # Options: cx11, cpx31, cax11, etc.
+# hcloud_location       = "fsn1"  # Options: fsn1, nbg1, hel1, ash
+# hcloud_ssh_key_name   = "my-existing-key"  # Use existing key (optional)
+# hcloud_ssh_public_key = "ssh-rsa AAAA..."  # Upload new key (if hcloud_ssh_key_name not set)
+
+# Shared Configuration
+#ssh_private_key_path = "~/.ssh/your-key.pem"  # REQUIRED: Path to your local private key
+#root_volume_size = 30
+#data_volume_size = 100
+#environment      = "dev"
+#data_device = "/dev/sdb"  # Data volume device (auto-detected if not set)
 
 # SECURITY: Change this to your IP address for SSH access
 # Example: allowed_ssh_cidr = ["203.0.113.0/32"]
-allowed_ssh_cidr = ["0.0.0.0/0"]
+#allowed_ssh_cidr = ["0.0.0.0/0"]
 
-# Optional: use a non-default VPC (must set both)
+# Optional: use a non-default VPC on AWS (must set both)
 # vpc_id    = "vpc-0123456789abcdef0"
 # subnet_id = "subnet-0123456789abcdef0"
 
-# AMI IDs for different regions (Ubuntu 22.04 LTS)
+# AWS AMI IDs for different regions (Ubuntu 22.04 LTS)
 # us-east-1: ami-0c7217cdde317cfec
 # us-west-2: ami-0efcece6bed30fd98
 # eu-west-1: ami-0905a3c97561e0b69
-ami_id = "ami-0c7217cdde317cfec"

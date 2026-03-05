@@ -29,16 +29,28 @@ apt-get install -y nodejs
 # Mount data volume if available
 echo "Checking for data volume..."
 DATA_DEVICE="${DATA_DEVICE:-}"
+
 if [ -n "$DATA_DEVICE" ] && [ -b "$DATA_DEVICE" ]; then
     :
 elif [ -b /dev/xvdf ]; then
     DATA_DEVICE="/dev/xvdf"
 elif [ -b /dev/nvme1n1 ]; then
     DATA_DEVICE="/dev/nvme1n1"
+elif [ -b /dev/sdb ]; then
+    DATA_DEVICE="/dev/sdb"
+elif [ -b /dev/vdb ]; then
+    DATA_DEVICE="/dev/vdb"
 else
-    DETECTED_DEVICE=$(lsblk -ndo NAME,TYPE | grep -m 1 'disk' | awk '{print $1}')
+    DETECTED_DEVICE=$(lsblk -ndo NAME,TYPE | grep -v 'sda' | grep -v 'vda' | grep -m 1 'disk' | awk '{print $1}')
     if [ -n "$DETECTED_DEVICE" ] && [ -b "/dev/$DETECTED_DEVICE" ]; then
         DATA_DEVICE="/dev/$DETECTED_DEVICE"
+    fi
+fi
+
+if [ -n "$DATA_DEVICE" ] && [ -b "$DATA_DEVICE" ]; then
+    if [ "$DATA_DEVICE" = "/dev/sda" ] || [ "$DATA_DEVICE" = "/dev/vda" ]; then
+        echo "Skipping root disk $DATA_DEVICE for data volume"
+        DATA_DEVICE=""
     fi
 fi
 

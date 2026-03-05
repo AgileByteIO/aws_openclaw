@@ -4,7 +4,7 @@
 
 set -e
 
-if [ $# -ne 2 ]; then
+if [ $# -ne 3 ]; then
     echo "Usage: $0 <ec2-public-ip> <path-to-ssh-key>"
     echo "Example: $0 54.123.45.67 ~/.ssh/my-key.pem"
     exit 1
@@ -12,13 +12,13 @@ fi
 
 EC2_IP=$1
 SSH_KEY=$2
-SSH_USER="ubuntu"
+SSH_USER=$3
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "=== OpenClaw Remote Installation Script ==="
 echo "Target EC2: $EC2_IP"
 echo "SSH Key: $SSH_KEY"
-echo ""
+echo "SSH_USER: $SSH_USER"
 
 # Verify SSH key exists
 if [ ! -f "$SSH_KEY" ]; then
@@ -31,7 +31,7 @@ chmod 400 "$SSH_KEY"
 
 echo "Testing SSH connection..."
 if ! ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no -o ConnectTimeout=10 "$SSH_USER@$EC2_IP" "echo 'Connection successful'"; then
-    echo "Error: Cannot connect to EC2 instance"
+    echo "Error: Cannot connect to Instance"
     exit 1
 fi
 
