@@ -12,10 +12,10 @@
 # Hetzner Configuration (used if cloud_provider = "hetzner")
 # hcloud_token          = "your-hcloud-token"  # REQUIRED: Get from Hetzner Console
 # hcloud_image          = "ubuntu-22.04"
-# hcloud_server_type    = "cx11"  # Options: cx11, cpx31, cax11, etc.
+# hcloud_server_type    = "cpx22"  # Options: cpx23, cpx33 etc.
 # hcloud_location       = "fsn1"  # Options: fsn1, nbg1, hel1, ash
 # hcloud_ssh_key_name   = "my-existing-key"  # Use existing key (optional)
-# hcloud_ssh_public_key = "ssh-rsa AAAA..."  # Upload new key (if hcloud_ssh_key_name not set)
+# hcloud_ssh_public_key = "~/.ssh/my_pub_key.pub"  # Upload new key (if hcloud_ssh_key_name not set)
 
 # Shared Configuration
 #ssh_private_key_path = "~/.ssh/your-key.pem"  # REQUIRED: Path to your local private key
