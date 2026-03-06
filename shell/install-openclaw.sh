@@ -19,7 +19,8 @@ apt-get upgrade -y
 echo "Installing dependencies..."
 apt-get install -y \
     curl \
-    ca-certificates
+    ca-certificates \
+    dbus-user-session
 
 # Install Node.js (required for OpenClaw CLI)
 echo "Installing Node.js (latest LTS)..."
