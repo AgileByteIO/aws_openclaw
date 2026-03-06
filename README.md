@@ -11,8 +11,8 @@ This OpenTofu configuration creates a cloud instance (AWS or Hetzner) with attac
 - **Security Group**: Allows SSH (port 22), HTTP (80), and HTTPS (443)
 
 ### Hetzner (cloud_provider = "hetzner")
-- **HCloud Server**: cx11 instance (configurable)
-- **Root Volume**: 30GB volume
+- **HCloud Server**: cpx22 instance (configurable)
+- **Root Volume**: 80GB volume
 - **Data Volume**: 100GB volume
 - **Firewall**: Allows SSH (port 22), HTTP (80), and HTTPS (443)
 
@@ -155,10 +155,10 @@ tofu destroy
 - **Total**: ~$40/month
 
 ### Hetzner (fsn1)
-- cx11 instance: ~$4/month
-- 30GB volume: ~$1.50/month
+- cpx22 instance: ~$ 7/month 
+- 80GB volume: -incuded -
 - 100GB volume: ~$5/month
-- **Total**: ~$10/month
+- **Total**: ~$12/month
 
 ## Troubleshooting
 
@@ -167,3 +167,19 @@ tofu destroy
 - **OpenClaw CLI not found**: Re-run `/tmp/install-openclaw.sh` or log out/in to refresh the shell PATH
 - **AWS: No default VPC**: Set `vpc_id` and `subnet_id` in `terraform.tfvars`
 - **Hetzner: Auth error**: Verify `HCLOUD_TOKEN` is set correctly
+
+After configuring OpenClaw, verify the gateway is working:
+
+```bash
+# Check gateway status
+openclaw gateway status
+
+# Or check all status
+openclaw status --all
+
+# If there are issues, run the doctor command
+openclaw doctor
+```
+
+For more help with OpenClaw configuration issues, see the official troubleshooting guide:
+[Troubleshooting](https://docs.openclaw.ai/help/troubleshooting)
